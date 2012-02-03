@@ -5,11 +5,14 @@
 #
 # GPLv2 License.
 #
-# Plot 2D heatmap projection of data output from Matlab antenna simulations.
+# Plot 2D heatmap projection of data output from Matlab antenna
+# simulations. Output PNG is in the same directory as from where the data file
+# was read.
 #
 # Author: tierney@cs.nyu.edu (Matt Tierney)
 
 import gflags
+import os
 import sys
 import numpy as np
 import matplotlib.pyplot as plt
@@ -30,7 +33,7 @@ gflags.RegisterValidator('dimension', lambda value: value > 0,
 
 def parse_file(filename):
   '''We assume the data is laid out as "X Y Z\n" per line in the file.'''
-  with open(filename,'r') as fh:
+  with open(filename, 'r') as fh:
     lines = fh.readlines()
 
   lines = [line.strip().split() for line in lines]
@@ -49,7 +52,10 @@ def plot_data_from_filename(filename):
   fig = plt.figure()
   ax = fig.add_subplot(111)
   ax.imshow(matrix, origin='lower') # This could also be upper.
-  fig.savefig(FLAGS.filename + '.png')
+
+  # Output the figure into the directory from which the  file was read.
+  figure_filename = os.path.join(FLAGS.filename + '.png')
+  fig.savefig(figure_filename)
   plt.show()
 
 

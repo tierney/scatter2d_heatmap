@@ -9,3 +9,7 @@ Requirements:
 Invocation:
 
   ./scatter2d_heatmap.py -d <DIMENSION> -f <FILENAME>
+
+Output:
+
+  <FILENAME>.png, which contains the color 2D projection.
