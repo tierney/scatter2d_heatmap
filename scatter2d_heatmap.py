@@ -15,8 +15,12 @@ import gflags
 import os
 import sys
 import numpy as np
+import matplotlib
+# Calling matplotlib.use() before import pyplot frees us from requiring a
+# $DISPLAY environment variable; i.e, makes it easier to script this process.
+# TODO(tierney): This image backend should be made more portable.
+matplotlib.use('ps')
 import matplotlib.pyplot as plt
-
 
 FLAGS = gflags.FLAGS
 gflags.DEFINE_string('filename', '', 'Name of data file.',
