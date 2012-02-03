@@ -1,0 +1,11 @@
+README for Scatter2D Heatmap Plots.
+Copyright (c) 2012, NYU.
+Author: tierney@cs.nyu.edu (Matt Tierney)
+
+Requirements:
+
+  sudo apt-get install python-scitools python-matplotlib
+
+Invocation:
+
+  ./scatter2d_heatmap.py -d <DIMENSION> -f <FILENAME>
