@@ -12,7 +12,6 @@
 import gflags
 import sys
 import numpy as np
-from mpl_toolkits.mplot3d import Axes3D
 import matplotlib.pyplot as plt
 
 
@@ -38,7 +37,7 @@ def parse_file(filename):
   return lines
 
 
-def build_matrix_from_file(filename):
+def build_matrix_from_filename(filename):
   lines = parse_file(filename)
   xdata = [0 for i in range(0, FLAGS.dimension)]
   ydata = [0 for i in range(0, FLAGS.dimension)]
@@ -53,7 +52,7 @@ def plot(matrix):
   # Make everything pretty.
   fig = plt.figure()
   ax = fig.add_subplot(111)
-  ax.imshow(matrix, origin='upper') # This could also be upper.
+  ax.imshow(matrix, origin='lower') # This could also be upper.
   fig.savefig(FLAGS.filename + '.png')
   plt.show()
 
@@ -65,7 +64,7 @@ def main(argv):
     print '%s\\nUsage: %s ARGS\\n%s' % (e, sys.argv[0], FLAGS)
     sys.exit(1)
 
-  matrix = build_matrix_from_file(FLAGS.filename)
+  matrix = build_matrix_from_filename(FLAGS.filename)
   plot(matrix)
 
 if __name__ == '__main__':
