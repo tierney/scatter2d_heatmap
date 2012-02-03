@@ -5,7 +5,7 @@
 #
 # GPLv2 License.
 #
-# Plot 2D projection of antenna data output from Matlab simulations.
+# Plot 2D heatmap projection of data output from Matlab antenna simulations.
 #
 # Author: tierney@cs.nyu.edu (Matt Tierney)
 
@@ -28,6 +28,7 @@ gflags.RegisterValidator('dimension', lambda value: value > 0,
                          message = 'Positive dimension required.',
                          flag_values = FLAGS)
 
+
 def parse_file(filename):
   '''We assume the data is laid out as "X Y Z\n" per line in the file.'''
   with open(filename,'r') as fh:
@@ -37,15 +38,8 @@ def parse_file(filename):
   return lines
 
 
-def main(argv):
-  try:
-    argv = FLAGS(argv) # Parse flags.
-  except gflags.FlagsError, e:
-    print '%s\\nUsage: %s ARGS\\n%s' % (e, sys.argv[0], FLAGS)
-    sys.exit(1)
-
-  lines = parse_file(FLAGS.filename)
-
+def build_matrix_from_file(filename):
+  lines = parse_file(filename)
   xdata = [0 for i in range(0, FLAGS.dimension)]
   ydata = [0 for i in range(0, FLAGS.dimension)]
   matrix = np.zeros((FLAGS.dimension, FLAGS.dimension))
@@ -54,6 +48,8 @@ def main(argv):
   for x, y, z in lines:
     matrix[int(x)-1, int(y)-1] = float(z)
 
+
+def plot(matrix):
   # Make everything pretty.
   fig = plt.figure()
   ax = fig.add_subplot(111)
@@ -61,6 +57,16 @@ def main(argv):
   fig.savefig(FLAGS.filename + '.png')
   plt.show()
 
+
+def main(argv):
+  try:
+    argv = FLAGS(argv) # Parse flags.
+  except gflags.FlagsError, e:
+    print '%s\\nUsage: %s ARGS\\n%s' % (e, sys.argv[0], FLAGS)
+    sys.exit(1)
+
+  matrix = build_matrix_from_file(FLAGS.filename)
+  plot(matrix)
 
 if __name__ == '__main__':
   main(sys.argv)
