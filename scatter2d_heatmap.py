@@ -23,6 +23,8 @@ gflags.DEFINE_string('filename', '', 'Name of data file.',
                      short_name = 'f')
 gflags.DEFINE_integer('dimension', 0, 'X and Y dimension.',
                       short_name = 'd')
+gflags.DEFINE_boolean('show', False, 'Show plotted figure.',
+                      short_name = 's')
 
 gflags.RegisterValidator('filename', lambda value: value is not '',
                          message = 'Filename required.', flag_values = FLAGS)
@@ -51,13 +53,18 @@ def plot_data_from_filename(filename):
   # Make everything pretty.
   fig = plt.figure()
   ax = fig.add_subplot(111)
-  ax.imshow(matrix, origin='lower') # This could also be upper.
+  cax = ax.imshow(matrix, origin='lower') # This could also be upper.
+  cbar = fig.colorbar(cax)
+
+  plt.xlabel("X")
+  plt.ylabel("Y")
 
   # Output the figure into the directory from which the  file was read.
-  figure_filename = os.path.join(FLAGS.filename + '.png')
+  figure_filename = os.path.join(FLAGS.filename + '.eps')
   fig.savefig(figure_filename)
-  plt.show()
 
+  if FLAGS.show:
+    plt.show()
 
 def main(argv):
   try:
