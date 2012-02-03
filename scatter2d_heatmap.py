@@ -37,18 +37,14 @@ def parse_file(filename):
   return lines
 
 
-def build_matrix_from_filename(filename):
+def plot_data_from_filename(filename):
   lines = parse_file(filename)
-  xdata = [0 for i in range(0, FLAGS.dimension)]
-  ydata = [0 for i in range(0, FLAGS.dimension)]
   matrix = np.zeros((FLAGS.dimension, FLAGS.dimension))
 
   # Convert the indices to being zero-indexed. Also, ensure types are correct.
   for x, y, z in lines:
     matrix[int(x)-1, int(y)-1] = float(z)
 
-
-def plot(matrix):
   # Make everything pretty.
   fig = plt.figure()
   ax = fig.add_subplot(111)
@@ -64,8 +60,7 @@ def main(argv):
     print '%s\\nUsage: %s ARGS\\n%s' % (e, sys.argv[0], FLAGS)
     sys.exit(1)
 
-  matrix = build_matrix_from_filename(FLAGS.filename)
-  plot(matrix)
+  plot_data_from_filename(FLAGS.filename)
 
 if __name__ == '__main__':
   main(sys.argv)
