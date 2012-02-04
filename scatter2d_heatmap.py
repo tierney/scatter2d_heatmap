@@ -74,7 +74,7 @@ def main(argv):
   try:
     argv = FLAGS(argv) # Parse flags.
   except gflags.FlagsError, e:
-    print '%s\\nUsage: %s ARGS\\n%s' % (e, sys.argv[0], FLAGS)
+    print '%s\nUsage: %s ARGS\n%s' % (e, sys.argv[0], FLAGS)
     sys.exit(1)
 
   plot_data_from_filename(FLAGS.filename)
