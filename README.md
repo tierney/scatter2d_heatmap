@@ -13,3 +13,5 @@ Invocation:
 Output:
 
   <FILENAME>.png, which contains the color 2D projection.
+
+![Sample Graph](https://github.com/tierney/scatter2d_heatmap/raw/master/src/2_2_.pae.eps)
