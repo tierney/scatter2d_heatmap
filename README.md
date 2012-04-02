@@ -1,7 +1,9 @@
 README for Scatter2D Heatmap Plots.
+
 Copyright (c) 2012, NYU.
+
 Author: tierney@cs.nyu.edu (Matt Tierney)
-n
+
 Requirements:
 
   sudo apt-get install python-scitools python-matplotlib
