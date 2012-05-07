@@ -19,7 +19,7 @@ import matplotlib
 # Calling matplotlib.use() before import pyplot frees us from requiring a
 # $DISPLAY environment variable; i.e, makes it easier to script this process.
 # TODO(tierney): This image backend should be made more portable.
-matplotlib.use('ps')
+matplotlib.use('agg')
 import matplotlib.pyplot as plt
 
 FLAGS = gflags.FLAGS
@@ -58,13 +58,14 @@ def plot_data_from_filename(filename):
   fig = plt.figure()
   ax = fig.add_subplot(111)
   cax = ax.imshow(matrix, origin='lower') # This could also be upper.
-  cbar = fig.colorbar(cax)
+  v = np.linspace(1, 50, 5, endpoint=True)
+  cbar = fig.colorbar(cax, ticks=v)
 
   plt.xlabel("X")
   plt.ylabel("Y")
 
   # Output the figure into the directory from which the  file was read.
-  figure_filename = os.path.join(FLAGS.filename + '.eps')
+  figure_filename = os.path.join(FLAGS.filename + '.png')
   fig.savefig(figure_filename)
 
   if FLAGS.show:
